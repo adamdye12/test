@@ -1,6 +1,6 @@
 object Main {
   def main(args: Array[String]): Unit = println("hello world")
-
+/*
   //language fundamentals
   var x = 10
   println(x)
@@ -155,7 +155,7 @@ object Main {
   println(scores0.get("Jacob"))
   println(scores0.get("Julia").getOrElse(0))
   println(scores0.get("Jacob").getOrElse(0))
-
+*/
   //mutable maps
   import scala.collection.mutable.{Map => MMap}
 
@@ -171,9 +171,109 @@ object Main {
   val scores4 = scores - "Jacob" //takes scores and removes Jacob
   println(scores4)
 
+  //element traversing
+  for((k,v) <- scores) println((k,v)) //tuple that prints keys and values
+  for((k,v) <- scores) println(k+" -> "+v)
+  println(scores.keySet) //shows keys (kevin, julia, john)
+  for(v <- scores.values) println(v) // shows values (26, 65, 75)
+  for((k,v) <- scores) yield println((v,k)) //reversing order
 
+  //streams are lists with lazy access to elements
+  val st = (1 to 100).toStream
+  println(st)
+  println(st.filter(_%10==0))
+  println(st.filter(_%10==0).toList)
 
+  //tuples
+  val t = (1,3.14,"John") //created a tuple
+  println(t) //shows data types
+  println(t._1) //prints element in tuple
+  println(t._2)
+  println(t._3)
+  println("t._3: ", t._3)
+  val (first, second, third) = t //labels the tuple
+  println("first: ", first, "second: ", second)
+  val (first1, second1, _) =t //disregards 3rd elements
 
+  //zipping
+  val symbols = Array("<", "-", ">")
+  val counts = Array(2, 10, 2)
+  var pairs = symbols zip counts //zips arrays together (<,2)...
+  for ((s,n) <- pairs) print(s*n) //times the together so <*2....
 
-
+  //two Lists to Map tansformation
+  val keys = List(1, 2, 3)
+  val values = List("a", "b", "c")
+  val newMap = (keys zip values).toMap
+  println(newMap)
+  println(newMap(1))
 }
+
+  //Lists
+  //From abstraction collections to lists
+  val t2 = Traversable(1,2,3)
+  println(t2)
+  val i = Iterable(1,2,3)
+  println(i)
+  val sq = Seq(1,2,3)
+  println(sq)
+
+  //operations with list
+  val odd = List(1,3,5,7,9)
+  val evens = List(2,4,6,8)
+  val nums = odd ++ evens //concats lists with odds following evens
+  println(nums)
+  val digs = 0 :: nums //put 0 at start of list
+  println(digs)
+  val lstr = "a" :: "b" :: "c" :: Nil //another way to create a list of a,b,c
+  println(lstr)
+
+  //other useful examples
+  val list1 = List(1,-2,3,2,-1,0,-3)
+  println(list1.head) //prints 1 as 0th element or head
+  println(list1.tail) //prints rest of the list as the tail
+  println(list1.last) //prints lastt element
+  println(list1.take(4)) //first four
+  println(list1.takeRight(4)) //last 4
+  println(list1.slice(3,6)) //position 3 to 6
+  println(list1.sum) // adds all elements to give 0
+  println(list1.min) // smallet int -3
+  println(list1.max) // biggest int 3
+  println(list1.contains(7)) //checks if it contains 7 false
+  println(list1.indexOf(3)) //gets 3rd element which is 2
+  println(list1.mkString) //convert to string
+  println(list1.mkString(","))
+  println(list1.count(x => x*x>1)) //multiplying each pair of numbers and checking if greater then 1, if it does then it counts
+
+  println(List(1,2,3) intersect List(2,3,4)) //takes common elements into new list (2,3)
+  println(List(1,2,3) diff List(2,3,4)) //1 is in list 1 but not in list 2
+  println(List(1,2,3).permutations.toList) //all diff permutations
+  println(List(1,2,3).combinations(2).toList) //all combinations using 2 elements
+  println(List(List(1,2), List(3,4)).flatten) //concats into 1 list
+
+  //Conditionals
+  val x3 = 0
+  val y2 = if (x3 > 0) 1 else -1 //prints -1
+  println(y2)
+println(if (x3 > 0) "plus" else -1) //pritns -1
+println(if (x3 > 0) 1 else ()) //prints ()
+println(if (x3 > 0) 1) //still prints ()
+
+ //loops
+var sum = 0
+while (sum <10) sum += 1 //Counts up to 10
+println(sum)
+  sum = 0
+  var k = 0
+  while (k < 10){ //cycles through until k = 10
+    sum += k*k // sum = 1 then k=2, 2*2=4, 1+4=5 etc.
+    k += 1 // adds 1 to k each time
+  }
+println(sum,k)
+
+
+
+
+
+
+
